@@ -10,9 +10,9 @@ import Util (safeHead)
 discrete_log :: Integral a => a -> a -> a -> Maybe a
 discrete_log base result modulus = do
     -- Rename to match typical description of algorithm
-    let (alpha, beta) = (base, result)
+    let (α, β) = (base, result)
     -- Calculate the order of the generated group
-    p <- ord modulus alpha
+    p <- ord modulus α
     -- Fairly-randomly generate a new valid equation
     let next (x, a, b) = let
         -- The algorithm works best when the parts are
@@ -20,9 +20,9 @@ discrete_log base result modulus = do
         -- easily when the output is taken by which set
         -- `x` is in of 3 roughly equal sets
               set_no = x `mod` 3
-              f x   = (x * (genericIndex [x, alpha, beta] set_no)) `mod` modulus
-              g x n = (n + (genericIndex [n,     1,    0] set_no)) `mod` p
-              h x n = (n + (genericIndex [n,     0,    1] set_no)) `mod` p
+              f x   = (x * (genericIndex [x, α, β] set_no)) `mod` modulus
+              g x n = (n + (genericIndex [n, 1, 0] set_no)) `mod` p
+              h x n = (n + (genericIndex [n, 0, 1] set_no)) `mod` p
           in (f x, g x a, h x b)
     -- Start with x^1 = α^0 * β^0 (mod modulus)
     let initial = (1, 0, 0)
