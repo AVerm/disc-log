@@ -66,7 +66,7 @@ linear_diophantine bigger smaller = do
     -- which must be represented as
     -- r_1 = (p_1 * r_1) + (d_1 * :b_1)
     -- for the algorithm to keep its form
-    let start = (p_1, r_1, d_1, (-b_1))
+    let start = (p_1, r_1, d_1, -b_1)
     -- r_1 = (product - (dividend * (product `quot` dividend))
     -- Use the previous step's extended euclideans along with
     -- $a, b, c, d s.t. a*b + c*d = 1$
@@ -75,4 +75,4 @@ linear_diophantine bigger smaller = do
     -- Do the extended Euclidean algorithm
     let (x, a, y, b) = foldr' (extended_euclid_step) start (init euclideans)
     -- Return Nothing or Just!
-    return $ (r_1, a, b)
+    return (r_1, a, b)
