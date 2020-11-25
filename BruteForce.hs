@@ -4,6 +4,8 @@ import Data.List (genericTake)
 import Mod_math (mult_mod)
 
 -- This finds any solutions that exist, slowly
+-- Warning: This may get stuck in a loop if there is no exponent
+-- that would work
 discrete_log :: (Integral a, Enum a) => a -> a -> a -> Maybe a
 discrete_log base result modulus = listToMaybe exponents
   where guesses = iterate (mult_mod modulus base) 1
