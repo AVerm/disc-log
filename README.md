@@ -31,7 +31,36 @@ Several methods exist to perform discrete logarithms, which all
 come with different drawbacks and requirements.
 
 0. Brute force
+  * Simplest method
+    * Try all exponents in a loop and see if they give the
+      correct result
+  * The slowest method
+    * Slower methods are possible, but they would necessarily
+      need to re-use exponents or test invalid exponents
 1. Pollard's rho
+  * Fairly Complex
+    * A combination of two algorithms really
+    * When randomly (but deterministically) walking over valid
+      equations, we must hit a cycle which is determined by the
+      exponent
+    * Use the tortoise and hare algorithm (also referred to as
+      slow runner and fast runner or walker and runner) to find
+      the repeat
+    * Take the information held in the repeat and use it to
+      reconstruct the exponent
+  * Fairly Quick
 2. Baby-Step Giant-Step
+  * Moderately Complex
+    * Calculate a boundary `m ~ ceil(sqrt(modulus))`
+    * Create a list of `0 <= j < m`s and a list of `0 <= k < m`s
+    * Try to find `j, k s.t. α^j === βα^{-Nk} (mod modulus)`
+    * Give `i * m + j` as the result
+    * This relies on a decomposition of the exponent into two
+      parts, which makes searching easier
+  * Fairly Quick
 3. Stretch goal: Poligh-Hellman
-   - Better: Add memoization
+  * Breaks discrete log problem into smaller discrete log
+    problems
+  * Requires sharing of work so that computations are not redone
+    * This should be easy in Haskell if things are well defined
+      using one of many memoization monads
